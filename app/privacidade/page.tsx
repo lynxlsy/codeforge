@@ -19,6 +19,7 @@ import {
   Star,
   Zap,
   Globe,
+  Clock,
 } from "lucide-react"
 
 export default function PrivacidadePage() {
