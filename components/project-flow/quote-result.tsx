@@ -291,13 +291,7 @@ export function QuoteResult({ projectData }: QuoteResultProps) {
         </Card>
       </div>
 
-      {/* Notificação simples sobre variação de preço */}
-      <div className="flex justify-center">
-        <div className="bg-blue-500 border border-blue-600 rounded-full px-4 py-2 text-white text-sm flex items-center gap-2">
-          <span className="text-blue-100">💡</span>
-          <span>Preço pode variar conforme complexidade</span>
-        </div>
-      </div>
+
 
       {/* Important Notes */}
       <Card className="bg-blue-50 border-blue-200">
