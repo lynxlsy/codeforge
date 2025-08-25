@@ -286,7 +286,7 @@ export default function PrivacidadePage() {
                 </div>
                 
                 <h3 className="text-xl font-bold text-white mb-4">Última Atualização</h3>
-                <p className="text-gray-300">Janeiro de 2024</p>
+                                 <p className="text-gray-300">Agosto de 2025</p>
                 <p className="text-sm text-gray-400 mt-2">
                   Esta política é revisada regularmente para garantir conformidade com as leis vigentes
                 </p>

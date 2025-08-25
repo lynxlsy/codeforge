@@ -204,7 +204,7 @@ export default function TermosPage() {
                 
                 <div className="bg-black/20 rounded-xl p-6 border border-white/10">
                   <h3 className="text-lg font-semibold text-white mb-4">Última Atualização</h3>
-                  <p className="text-gray-300">Janeiro de 2024</p>
+                  <p className="text-gray-300">Agosto de 2025</p>
                 </div>
               </CardContent>
             </Card>
