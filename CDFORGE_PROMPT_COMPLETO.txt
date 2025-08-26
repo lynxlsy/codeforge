@@ -1,0 +1,378 @@
+🚀 **PROMPT DETALHADO - CDforge (CodeForge)**
+
+📋 **VISÃO GERAL DO PROJETO**
+
+O **CDforge** (CodeForge) é uma plataforma web moderna e profissional especializada em **serviços digitais personalizados**, desenvolvida com Next.js 15, TypeScript e Firebase. A plataforma oferece uma experiência completa para clientes solicitarem projetos de bots, sites e automações, com um sistema administrativo robusto para gerenciamento de pedidos.
+
+---
+
+🎯 **PRINCIPAIS FUNCIONALIDADES**
+
+1. SISTEMA DE CATEGORIAS DE SERVIÇOS
+- **Bots Inteligentes**: Discord, Instagram, WhatsApp, Telegram e sistemas customizados
+- **Sites Profissionais**: Landing pages, E-commerce, Portfólios e Sistemas Web
+- **Serviços Personalizados**: APIs customizadas, integrações, consultoria e manutenção
+
+2. FLUXO DE PROJETOS AUTOMATIZADO
+- **Seleção de Plataforma**: Interface intuitiva para escolher o tipo de serviço
+- **Detalhamento do Projeto**: Formulário completo com informações do cliente e especificações
+- **Geração Automática de Orçamento**: Cálculo instantâneo baseado em complexidade e prazo
+- **Sistema de PDF**: Geração automática de comprovantes profissionais
+
+3. ÁREA ADMINISTRATIVA (DEV)
+- **Dashboard em Tempo Real**: Estatísticas dinâmicas de pedidos e receita
+- **Gerenciamento de Projetos**: CRUD completo com filtros avançados
+- **Sistema de Promoções**: Códigos de desconto e campanhas
+- **Configurações de Contato**: Gerenciamento de canais de comunicação
+- **Sistema de Preços**: Configuração dinâmica de valores por categoria
+
+4. SISTEMA DE CONTATO INTEGRADO
+- **Múltiplos Canais**: WhatsApp, Email, Discord, Instagram, Telegram
+- **Configuração Dinâmica**: Ativação/desativação de canais via admin
+- **Resposta Automática**: Tempos de resposta configuráveis
+- **Integração com Firebase**: Dados sincronizados em tempo real
+
+---
+
+🎨 **DESIGN SYSTEM E INTERFACE**
+
+PALETA DE CORES
+- **Primária**: Azul (#3b82f6) - Representa tecnologia e confiança
+- **Fundo**: Preto quase absoluto (#0d0d0d) - Elegância e modernidade
+- **Cards**: Cinza escuro (#141414) - Contraste e profundidade
+- **Texto**: Branco (#fafafa) - Legibilidade máxima
+- **Acentos**: Variações do azul primário para elementos interativos
+
+TIPOGRAFIA
+- **Títulos**: Montserrat (serif) - Elegância e autoridade
+- **Corpo**: Inter (sans-serif) - Legibilidade e modernidade
+- **Hierarquia**: Sistema de pesos bem definido (100-900)
+
+COMPONENTES VISUAIS
+
+1. NAVEGAÇÃO
+- **Sticky Header**: Sempre visível com backdrop blur
+- **Indicadores Ativos**: Destaque visual para página atual
+- **Menu Mobile**: Responsivo com animações suaves
+- **Logo Animado**: Rotação no hover com efeito de brilho
+
+2. HERO SECTION
+- **Logo Central**: Imagem principal com animação de rotação
+- **Gradientes Dinâmicos**: Fundo com partículas flutuantes
+- **Call-to-Actions**: Botões com efeitos de hover elaborados
+- **Estatísticas**: Métricas de credibilidade (270+ projetos, 98% satisfação)
+
+3. CARDS INTERATIVOS
+- **Hover Effects**: Elevação e mudança de cor de borda
+- **Gradientes**: Backgrounds com transparência
+- **Ícones**: Lucide React com cores temáticas
+- **Animações**: Transições suaves de 300ms
+
+4. SISTEMA DE PARTÍCULAS
+- **Background Dinâmico**: Partículas flutuantes em movimento
+- **Performance**: Otimizado com configurações de performance
+- **Personalização**: Quantidade configurável por página
+- **Cores**: Azul e branco com opacidade variável
+
+RESPONSIVIDADE
+- **Mobile-First**: Design otimizado para dispositivos móveis
+- **Breakpoints**: sm (640px), md (768px), lg (1024px), xl (1280px)
+- **Grid System**: Flexbox e CSS Grid para layouts adaptativos
+- **Touch-Friendly**: Elementos com tamanho mínimo de 44px
+
+---
+
+🛠️ **ARQUITETURA TÉCNICA**
+
+STACK TECNOLÓGICO
+- **Frontend**: Next.js 15 com App Router
+- **Linguagem**: TypeScript para type safety
+- **Styling**: Tailwind CSS v4 com custom properties
+- **UI Components**: Radix UI + shadcn/ui
+- **Backend**: Firebase (Firestore, Auth, Storage)
+- **Deploy**: Vercel com configuração otimizada
+
+ESTRUTURA DE ARQUIVOS
+app/
+├── layout.tsx (Layout principal)
+├── page.tsx (Homepage)
+├── categorias/ (Sistema de categorias)
+├── contato/ (Página de contato)
+├── planos/ (Página de planos)
+└── dev/ (Área administrativa)
+
+components/
+├── ui/ (Componentes base)
+├── categories/ (Componentes de categorias)
+├── project-flow/ (Fluxo de projetos)
+├── dev/ (Componentes administrativos)
+└── auth/ (Componentes de autenticação)
+
+hooks/
+├── use-firebase.ts (Hooks do Firebase)
+├── use-global-settings.ts (Configurações globais)
+└── use-contact-config.ts (Configuração de contatos)
+
+lib/
+├── firebase-services.ts (Serviços do Firebase)
+├── pdf-generator.ts (Gerador de PDFs)
+└── utils.ts (Utilitários)
+
+SISTEMA DE ESTADOS
+- **Context API**: Para configurações globais e autenticação
+- **React Hooks**: Para gerenciamento de estado local
+- **Firebase Realtime**: Para dados em tempo real
+- **Local Storage**: Para preferências do usuário
+
+---
+
+🔄 **FLUXO DE USUÁRIO**
+
+PARA CLIENTES
+1. **Acesso à Homepage**: Visualização dos serviços e estatísticas
+2. **Navegação por Categorias**: Escolha do tipo de serviço
+3. **Seleção de Plataforma**: Especificação da tecnologia
+4. **Preenchimento de Detalhes**: Informações do projeto e contato
+5. **Geração de Orçamento**: Cálculo automático com PDF
+6. **Contato para Finalização**: Redirecionamento para WhatsApp
+
+PARA ADMINISTRADORES
+1. **Login Seguro**: Autenticação via Firebase
+2. **Dashboard Principal**: Visão geral de métricas
+3. **Gerenciamento de Projetos**: CRUD completo
+4. **Configurações**: Preços, contatos e promoções
+5. **Monitoramento**: Estatísticas em tempo real
+
+---
+
+📱 **EXPERIÊNCIA DO USUÁRIO (UX)**
+
+PRINCÍPIOS DE DESIGN
+- **Simplicidade**: Interface limpa e intuitiva
+- **Consistência**: Padrões visuais uniformes
+- **Feedback**: Animações e estados visuais claros
+- **Acessibilidade**: Contraste adequado e navegação por teclado
+- **Performance**: Carregamento rápido e otimizações
+
+MICROINTERAÇÕES
+- **Hover States**: Feedback visual em elementos interativos
+- **Loading States**: Indicadores de carregamento
+- **Transitions**: Animações suaves entre estados
+- **Toast Notifications**: Feedback de ações do usuário
+- **Skeleton Loading**: Placeholders durante carregamento
+
+OTIMIZAÇÕES DE PERFORMANCE
+- **Lazy Loading**: Carregamento sob demanda
+- **Image Optimization**: Otimização automática de imagens
+- **Code Splitting**: Divisão de código por rota
+- **Caching**: Estratégias de cache eficientes
+- **Bundle Analysis**: Monitoramento de tamanho de pacotes
+
+---
+
+🔒 **SEGURANÇA E CONFIABILIDADE**
+
+AUTENTICAÇÃO
+- **Firebase Auth**: Sistema robusto de autenticação
+- **Middleware**: Proteção de rotas administrativas
+- **Session Management**: Gerenciamento seguro de sessões
+- **Role-Based Access**: Controle de acesso por função
+
+PROTEÇÃO DE DADOS
+- **Input Validation**: Validação rigorosa de entradas
+- **XSS Prevention**: Proteção contra ataques XSS
+- **CSRF Protection**: Proteção contra ataques CSRF
+- **Data Encryption**: Criptografia de dados sensíveis
+
+---
+
+📊 **ANÁLISE E MÉTRICAS**
+
+ESTATÍSTICAS EM TEMPO REAL
+- **Pedidos Pendentes**: Contagem de projetos em análise
+- **Receita Total**: Soma de todos os projetos
+- **Taxa de Conversão**: Proporção de visitantes que fazem pedidos
+- **Tempo de Resposta**: Métricas de atendimento
+
+DASHBOARD ADMINISTRATIVO
+- **Gráficos Interativos**: Visualização de dados com Recharts
+- **Filtros Avançados**: Busca por status, data, categoria
+- **Exportação**: Geração de relatórios em PDF
+- **Notificações**: Alertas para novos pedidos
+
+---
+
+🚀 **DIFERENCIAIS COMPETITIVOS**
+
+TECNOLÓGICOS
+- **Next.js 15**: Framework mais recente com App Router
+- **TypeScript**: Type safety completo
+- **Firebase Integration**: Backend serverless escalável
+- **PDF Generation**: Comprovantes automáticos profissionais
+- **Real-time Updates**: Dados sincronizados instantaneamente
+
+EXPERIENCIAIS
+- **Fluxo Simplificado**: Processo de pedido em 3 passos
+- **Design Moderno**: Interface elegante e profissional
+- **Responsividade Total**: Funciona perfeitamente em todos os dispositivos
+- **Performance Otimizada**: Carregamento rápido e suave
+- **Acessibilidade**: Design inclusivo e acessível
+
+OPERACIONAIS
+- **Automação Completa**: Desde o pedido até o PDF
+- **Gestão Centralizada**: Tudo em uma única plataforma
+- **Escalabilidade**: Arquitetura preparada para crescimento
+- **Manutenibilidade**: Código limpo e bem documentado
+- **Monitoramento**: Métricas e analytics integrados
+
+---
+
+🎯 **OBJETIVOS E RESULTADOS**
+
+META PRINCIPAL
+Criar uma plataforma completa que automatize todo o processo de venda de serviços digitais, desde a apresentação até a geração de orçamentos, proporcionando uma experiência profissional tanto para clientes quanto para administradores.
+
+RESULTADOS ESPERADOS
+- **Aumento de Conversão**: Fluxo otimizado para conversão
+- **Redução de Tempo**: Automação de processos manuais
+- **Melhoria na Experiência**: Interface moderna e intuitiva
+- **Escalabilidade**: Preparado para crescimento do negócio
+- **Profissionalismo**: Imagem de marca consistente e confiável
+
+---
+
+📋 **FUNCIONALIDADES DETALHADAS POR SEÇÃO**
+
+HOME PAGE
+- Hero section com logo animado e call-to-actions
+- Seção de serviços com cards interativos
+- Estatísticas de credibilidade (270+ projetos, 98% satisfação)
+- Background com partículas flutuantes
+- Navegação sticky com indicadores ativos
+
+CATEGORIAS
+- Grid responsivo com 3 categorias principais
+- Cards com hover effects e gradientes
+- Processo explicativo em 3 passos
+- Links diretos para cada tipo de serviço
+
+BOTS
+- 5 plataformas: Discord, Instagram, WhatsApp, Telegram, Custom
+- Preços base por plataforma
+- Lista de funcionalidades específicas
+- Fluxo de projeto integrado
+
+SITES
+- Tipos: Landing Pages, E-commerce, Portfólios, Sistemas Web
+- Preços base por complexidade
+- Funcionalidades específicas por tipo
+- Integração com fluxo de projeto
+
+SERVIÇOS PERSONALIZADOS
+- APIs Customizadas, Integrações, Consultoria, Manutenção
+- Preços base por serviço
+- Funcionalidades avançadas
+- Suporte dedicado
+
+FLUXO DE PROJETO
+- 3 etapas: Plataforma → Detalhes → Orçamento
+- Indicador de progresso visual
+- Validação em tempo real
+- Geração automática de PDF
+
+CONTATO
+- Múltiplos canais configuráveis
+- Cards interativos por canal
+- Tempos de resposta
+- Integração com WhatsApp
+
+ÁREA DEV
+- Dashboard com estatísticas em tempo real
+- Gerenciamento completo de projetos
+- Sistema de promoções
+- Configurações de contato
+- Gerenciamento de preços
+- Sistema de usuários
+
+---
+
+🔧 **CONFIGURAÇÕES TÉCNICAS**
+
+FIREBASE
+- Firestore para dados em tempo real
+- Authentication para login seguro
+- Storage para arquivos
+- Hosting para deploy
+
+NEXT.JS
+- App Router para roteamento
+- Server Components para performance
+- API Routes para backend
+- Image Optimization automática
+
+TAILWIND CSS
+- Custom properties para temas
+- Responsive design
+- Dark mode nativo
+- Animações customizadas
+
+COMPONENTES
+- Radix UI para acessibilidade
+- shadcn/ui para design system
+- Lucide React para ícones
+- React Hook Form para formulários
+
+---
+
+📈 **MÉTRICAS DE PERFORMANCE**
+
+CARREGAMENTO
+- First Contentful Paint: < 1.5s
+- Largest Contentful Paint: < 2.5s
+- Cumulative Layout Shift: < 0.1
+- First Input Delay: < 100ms
+
+OTIMIZAÇÕES
+- Code splitting automático
+- Lazy loading de componentes
+- Image optimization
+- Bundle size < 500KB
+
+ACESSIBILIDADE
+- WCAG 2.1 AA compliance
+- Keyboard navigation
+- Screen reader support
+- High contrast mode
+
+---
+
+🎨 **DETALHES VISUAIS**
+
+ANIMAÇÕES
+- Hover effects com transform
+- Loading states com skeleton
+- Page transitions suaves
+- Micro-interactions
+
+GRADIENTS
+- Background gradients sutis
+- Card hover gradients
+- Button gradient effects
+- Text gradient highlights
+
+SHADOWS
+- Subtle drop shadows
+- Glow effects on focus
+- Depth indicators
+- Layered shadows
+
+COLORS
+- Primary: #3b82f6 (Blue)
+- Background: #0d0d0d (Near Black)
+- Card: #141414 (Dark Gray)
+- Text: #fafafa (White)
+- Muted: #b3b3b3 (Light Gray)
+
+---
+
+Este é o **CDforge** - uma plataforma que combina tecnologia de ponta, design moderno e funcionalidades robustas para revolucionar a forma como serviços digitais são oferecidos e gerenciados.
