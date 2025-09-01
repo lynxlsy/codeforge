@@ -9,8 +9,7 @@
     "start": "next start",
     "generate-icons": "node scripts/generate-icons.js",
     "pwa:build": "npm run generate-icons && npm run build",
-    "init-labels": "node scripts/init-tool-labels.js",
-    "generate-extension": "node scripts/generate-extension.js"
+    "init-labels": "node scripts/init-tool-labels.js"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",

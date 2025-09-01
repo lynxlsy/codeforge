@@ -4,7 +4,7 @@ import { useState, useRef, useCallback, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Slider } from "@/components/ui/slider"
-import { FileImage, Upload, Download, X, Loader2, Palette, Eraser, Pipette, Wand2, Undo2, Redo2, ZoomIn, ZoomOut, Chrome, Download as DownloadIcon, CheckCircle, AlertCircle } from "lucide-react"
+import { FileImage, Upload, Download, X, Loader2, Palette, Eraser, Pipette, Wand2, Undo2, Redo2, ZoomIn, ZoomOut } from "lucide-react"
 
 interface BackgroundRemoverProps {
   onClose?: () => void
@@ -38,26 +38,9 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
   const [imageLoaded, setImageLoaded] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [processingStep, setProcessingStep] = useState('')
-  const [extensionInstalled, setExtensionInstalled] = useState(false)
-  const [showExtensionPrompt, setShowExtensionPrompt] = useState(false)
 
-  // Verificar se a extensão está instalada
-  useEffect(() => {
-    const checkExtension = () => {
-      // Verificar se a extensão CDforge está disponível
-      if (typeof window !== 'undefined' && (window as any).cdforgeExtension) {
-        setExtensionInstalled(true)
-        console.log('Extensão CDforge detectada!')
-      } else {
-        setExtensionInstalled(false)
-      }
-    }
 
-    checkExtension()
-    // Verificar a cada 2 segundos
-    const interval = setInterval(checkExtension, 2000)
-    return () => clearInterval(interval)
-  }, [])
+
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -72,11 +55,7 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
         return
       }
 
-      // Se não tem extensão, mostrar prompt
-      if (!extensionInstalled) {
-        setShowExtensionPrompt(true)
-        return
-      }
+      
 
       // Simular progresso de upload
       setUploadProgress(0)
@@ -131,42 +110,7 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
     event.preventDefault()
   }
 
-  const downloadExtension = () => {
-    setProcessingStep('Preparando download da extensão...')
-    setUploadProgress(0)
-    
-    // Simular preparação do download
-    setTimeout(() => {
-      setProcessingStep('Iniciando download...')
-      setUploadProgress(25)
-      
-      setTimeout(() => {
-        setProcessingStep('Gerando arquivo ZIP...')
-        setUploadProgress(50)
-        
-        setTimeout(() => {
-          setProcessingStep('Download concluído!')
-          setUploadProgress(100)
-          
-          // Fazer download real do arquivo ZIP
-          const link = document.createElement('a')
-          link.href = '/cdforge-extension.zip'
-          link.download = 'cdforge-extension.zip'
-          link.style.display = 'none'
-          document.body.appendChild(link)
-          link.click()
-          document.body.removeChild(link)
-          
-          setTimeout(() => {
-            setExtensionInstalled(true)
-            setShowExtensionPrompt(false)
-            setUploadProgress(0)
-            setProcessingStep('')
-          }, 2000)
-        }, 1000)
-      }, 1000)
-    }, 500)
-  }
+
 
   const initializeCanvas = useCallback(() => {
     const canvas = canvasRef.current
@@ -588,79 +532,14 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
             )}
           </div>
 
-          {/* Extension Status */}
-          <div className="mb-6">
-            {extensionInstalled ? (
-              <div className="flex items-center space-x-2 p-3 bg-green-900/20 border border-green-600/30 rounded-lg">
-                <CheckCircle className="w-5 h-5 text-green-400" />
-                <span className="text-green-300 text-sm">Extensão CDforge instalada e ativa</span>
-              </div>
-            ) : (
-              <div className="flex items-center space-x-2 p-3 bg-yellow-900/20 border border-yellow-600/30 rounded-lg">
-                <AlertCircle className="w-5 h-5 text-yellow-400" />
-                <span className="text-yellow-300 text-sm">Extensão CDforge não detectada</span>
-              </div>
-            )}
-          </div>
+
 
           {!isEditing ? (
             <>
-              {/* Extension Prompt */}
-              {showExtensionPrompt && (
-                <div className="mb-6 p-6 bg-blue-900/20 border border-blue-600/30 rounded-lg">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Chrome className="w-6 h-6 text-blue-400" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-blue-300 mb-2">
-                        Instale a Extensão CDforge
-                      </h3>
-                      <p className="text-blue-400 text-sm mb-4">
-                        Para processamento local rápido e eficiente, instale nossa extensão gratuita. 
-                        Ela permite processamento instantâneo sem upload de imagens.
-                      </p>
-                      <div className="space-y-3">
-                        <div className="flex items-center space-x-2 text-xs text-blue-400">
-                          <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                          <span>Processamento 100% local</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-xs text-blue-400">
-                          <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                          <span>Sem upload de imagens</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-xs text-blue-400">
-                          <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                          <span>Privacidade total</span>
-                        </div>
-                        <div className="flex items-center space-x-2 text-xs text-blue-400">
-                          <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                          <span>Processamento instantâneo</span>
-                        </div>
-                      </div>
-                      <div className="flex space-x-3 mt-4">
-                        <Button
-                          onClick={downloadExtension}
-                          className="bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border-blue-600/30"
-                        >
-                          <DownloadIcon className="w-4 h-4 mr-2" />
-                          Baixar Extensão
-                        </Button>
-                        <Button
-                          onClick={() => setShowExtensionPrompt(false)}
-                          variant="outline"
-                          className="border-gray-600 text-gray-300 hover:bg-gray-800"
-                        >
-                          Continuar sem extensão
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              
 
-              {/* Upload Area */}
-              {!selectedFile && !showExtensionPrompt && (
+                             {/* Upload Area */}
+               {!selectedFile && (
                 <div
                   className="w-full h-64 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl border-2 border-dashed border-gray-600/30 flex items-center justify-center hover:border-green-500/50 transition-colors cursor-pointer"
                   onDrop={handleDrop}
