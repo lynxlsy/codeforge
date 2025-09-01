@@ -353,6 +353,14 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
               setIsEditing(true)
               setUploadProgress(0)
               setProcessingStep('')
+              
+              // Aguardar um pouco para o canvas inicializar e depois aplicar remoção automática
+              setTimeout(() => {
+                if (canvasRef.current) {
+                  console.log('Aplicando remoção automática de fundo...')
+                  autoRemoveBackground()
+                }
+              }, 1000)
             }, 500)
           } else {
             setUploadProgress(Math.round(progress))
@@ -405,6 +413,7 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
     const canvas = canvasRef.current
     if (!canvas) return
 
+    console.log('Iniciando remoção automática de fundo...')
     saveState()
     
     const ctx = canvas.getContext('2d')
@@ -415,15 +424,21 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
     const width = canvas.width
     const height = canvas.height
 
-    // Algoritmo ultra-rápido de remoção de fundo
+    // Algoritmo melhorado de remoção de fundo
     removeBackgroundFast(data, width, height)
 
     ctx.putImageData(imageData, 0, 0)
+    console.log('Remoção automática concluída!')
   }
 
   const removeBackgroundFast = (data: Uint8ClampedArray, width: number, height: number) => {
+    console.log('Executando algoritmo de remoção de fundo...')
+    
     // Analisar bordas para detectar cor do fundo
     const borderColors = getBorderColors(data, width, height)
+    console.log('Cores de fundo detectadas:', borderColors)
+    
+    let pixelsRemoved = 0
     
     // Remover pixels similares ao fundo
     for (let i = 0; i < data.length; i += 4) {
@@ -438,21 +453,24 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
           Math.pow(g - bgColor.g, 2) + 
           Math.pow(b - bgColor.b, 2)
         )
-        return distance < 60 // Threshold mais baixo para precisão
+        return distance < 80 // Threshold aumentado para ser mais eficaz
       })
       
       if (isBackground) {
         data[i + 3] = 0 // Tornar transparente
+        pixelsRemoved++
       }
     }
+    
+    console.log(`Removidos ${pixelsRemoved} pixels de fundo`)
   }
 
   const getBorderColors = (data: Uint8ClampedArray, width: number, height: number) => {
     const colors: { r: number, g: number, b: number }[] = []
     
-    // Amostras das bordas (mais rápido)
+    // Amostras das bordas (mais preciso)
     const samples = []
-    const step = Math.max(5, Math.floor(Math.min(width, height) / 20))
+    const step = Math.max(3, Math.floor(Math.min(width, height) / 30)) // Mais amostras
     
     // Borda superior e inferior
     for (let x = 0; x < width; x += step) {
@@ -466,7 +484,7 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
       samples.push((y * width + width - 1) * 4) // Direita
     }
     
-    // Calcular cores médias
+    // Calcular cores médias das bordas
     if (samples.length > 0) {
       let totalR = 0, totalG = 0, totalB = 0
       samples.forEach(idx => {
@@ -482,11 +500,18 @@ export function BackgroundRemover({ onClose }: BackgroundRemoverProps) {
       })
     }
     
-    // Adicionar cores claras comuns
-    colors.push({ r: 255, g: 255, b: 255 }) // Branco
+    // Adicionar cores claras comuns (mais variações)
+    colors.push({ r: 255, g: 255, b: 255 }) // Branco puro
+    colors.push({ r: 250, g: 250, b: 250 }) // Branco sujo
     colors.push({ r: 245, g: 245, b: 245 }) // Cinza muito claro
-    colors.push({ r: 250, g: 250, b: 250 }) // Cinza claro
+    colors.push({ r: 240, g: 240, b: 240 }) // Cinza claro
+    colors.push({ r: 235, g: 235, b: 235 }) // Cinza médio-claro
     
+    // Adicionar cores de fundo comuns
+    colors.push({ r: 248, g: 248, b: 248 }) // Fundo de documento
+    colors.push({ r: 252, g: 252, b: 252 }) // Fundo de tela
+    
+    console.log('Cores de fundo detectadas:', colors)
     return colors
   }
 
