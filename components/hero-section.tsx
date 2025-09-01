@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowRight, Bot, Globe, Zap } from "lucide-react"
 import { Button } from "./ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card"
+import { Logo } from "./logo"
 
 export function HeroSection() {
   const services = [
@@ -35,11 +36,21 @@ export function HeroSection() {
               <div className="relative">
                 <div className="w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 flex items-center justify-center">
                   <div className="relative">
-                    <img
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-agyc4PJBa4QI0Ndum54jAq1NZJIcXp.png"
-                      alt="CodeForge Logo"
-                      className="relative z-10 w-32 h-32 md:w-44 md:h-44 lg:w-56 lg:h-56 hover:animate-spin-fast transition-all duration-300"
-                    />
+                    <div className="w-32 h-32 md:w-44 md:h-44 lg:w-56 lg:h-56 flex items-center justify-center">
+                      <img
+                        src="/logo.svg"
+                        alt="CodeForge Logo"
+                        className="w-full h-full"
+                        style={{
+                          filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(200deg) brightness(104%) contrast(97%)',
+                          background: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 50%, #93c5fd 100%)',
+                          WebkitMask: 'url(/logo.svg) no-repeat center',
+                          WebkitMaskSize: 'contain',
+                          mask: 'url(/logo.svg) no-repeat center',
+                          maskSize: 'contain'
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

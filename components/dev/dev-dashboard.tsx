@@ -22,6 +22,7 @@ import { ProjectsManager } from "./projects-manager"
 import { PricingManager } from "./pricing-manager"
 import { ContactManager } from "./contact-manager"
 import { IntelligentOptimizer } from "@/components/intelligent-optimizer"
+import { PredefinedEmployeesManager } from "./predefined-employees-manager"
 import { useStats } from "@/hooks/use-firebase"
 import { useAuth } from "@/contexts/auth-context"
 import { useRouter } from "next/navigation"
@@ -302,6 +303,7 @@ const ProjectsSection = () => <ProjectsManager />
 const PricingSection = () => <PricingManager />
 const ContactsSection = () => <ContactManager />
 const OptimizationSection = () => <IntelligentOptimizer />
+const EmployeesSection = () => <PredefinedEmployeesManager />
 
 export function DevDashboard({ isModal = false, onClose, activeSection: initialActiveSection = "overview", onSectionChange }: DevDashboardProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -324,6 +326,8 @@ export function DevDashboard({ isModal = false, onClose, activeSection: initialA
         return <ContactsSection />
       case "optimization":
         return <OptimizationSection />
+      case "employees":
+        return <EmployeesSection />
       default:
         return <OverviewSection />
     }

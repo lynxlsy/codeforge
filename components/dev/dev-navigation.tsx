@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Shield, BarChart3, Package, DollarSign, Phone, Zap, LogOut, X } from "lucide-react"
+import { Shield, BarChart3, Package, DollarSign, Phone, Zap, LogOut, X, Users } from "lucide-react"
 import { useAuth } from "@/contexts/auth-context"
 import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
@@ -20,6 +20,7 @@ const navigationItems = [
   { icon: DollarSign, label: "Planos e Preços", id: "pricing" },
   { icon: Phone, label: "Contatos", id: "contacts" },
   { icon: Zap, label: "Otimização", id: "optimization" },
+  { icon: Users, label: "Funcionários", id: "employees" },
 ]
 
 export function DevNavigation({ isOpen, onClose, activeSection, onSectionChange }: DevNavigationProps) {

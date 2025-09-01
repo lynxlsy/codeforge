@@ -1,0 +1,355 @@
+/* Estilos específicos para dispositivos móveis - Sistema de Formulários */
+
+/* Melhorias de touch para dispositivos móveis */
+@media (max-width: 768px) {
+  /* Aumentar área de toque para botões */
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Melhorar scroll em dispositivos móveis */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Otimizar inputs para mobile */
+  .mobile-input {
+    font-size: 16px; /* Evita zoom no iOS */
+    padding: 12px 16px;
+    border-radius: 12px;
+  }
+  
+  /* Melhorar espaçamento em mobile */
+  .mobile-spacing {
+    gap: 12px;
+  }
+  
+  /* Cards mais compactos em mobile */
+  .mobile-card {
+    margin: 8px;
+    border-radius: 16px;
+  }
+  
+  /* Botões mais touch-friendly */
+  .mobile-button {
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  /* Melhorar navegação por tabs em mobile */
+  .mobile-tabs {
+    gap: 4px;
+    padding: 4px;
+  }
+  
+  .mobile-tab {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+  
+  /* Otimizar modais para mobile */
+  .mobile-modal {
+    margin: 16px;
+    border-radius: 20px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+  }
+  
+  /* Melhorar feedback visual em mobile */
+  .mobile-feedback {
+    transition: all 0.2s ease;
+  }
+  
+  .mobile-feedback:active {
+    transform: scale(0.98);
+  }
+  
+  /* Otimizar grid para mobile */
+  .mobile-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  /* Melhorar tipografia em mobile */
+  .mobile-text {
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+  
+  /* Otimizar ícones para mobile */
+  .mobile-icon {
+    flex-shrink: 0;
+  }
+  
+  /* Melhorar acessibilidade em mobile */
+  .mobile-focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  
+  /* Otimizar animações para mobile */
+  .mobile-animate {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Melhorar performance de scroll */
+  .mobile-scroll-optimized {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  
+  /* Otimizar formulários para mobile */
+  .mobile-form {
+    padding: 16px;
+  }
+  
+  .mobile-form-group {
+    margin-bottom: 20px;
+  }
+  
+  .mobile-form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .mobile-form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 16px;
+    background-color: white;
+    transition: border-color 0.2s ease;
+  }
+  
+  .mobile-form-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+  
+  /* Melhorar botões de ação em mobile */
+  .mobile-action-button {
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+  
+  .mobile-action-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+  }
+  
+  /* Otimizar cards para mobile */
+  .mobile-card-content {
+    padding: 16px;
+  }
+  
+  .mobile-card-header {
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  /* Melhorar navegação em mobile */
+  .mobile-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  /* Otimizar listas para mobile */
+  .mobile-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  .mobile-list-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background-color 0.2s ease;
+  }
+  
+  .mobile-list-item:last-child {
+    border-bottom: none;
+  }
+  
+  .mobile-list-item:active {
+    background-color: #f9fafb;
+  }
+  
+  /* Melhorar feedback de loading em mobile */
+  .mobile-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+  }
+  
+  .mobile-loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e5e7eb;
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Otimizar tooltips para mobile */
+  .mobile-tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .mobile-tooltip-content {
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1f2937;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 50;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  .mobile-tooltip:hover .mobile-tooltip-content {
+    opacity: 1;
+  }
+  
+  /* Melhorar acessibilidade de cores */
+  .mobile-high-contrast {
+    color: #111827;
+    background-color: #ffffff;
+  }
+  
+  .mobile-high-contrast:focus {
+    outline: 3px solid #000000;
+    outline-offset: 2px;
+  }
+}
+
+/* Melhorias específicas para telas muito pequenas */
+@media (max-width: 480px) {
+  .mobile-xs-text {
+    font-size: 14px;
+  }
+  
+  .mobile-xs-padding {
+    padding: 12px;
+  }
+  
+  .mobile-xs-margin {
+    margin: 8px;
+  }
+  
+  .mobile-xs-button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Melhorias para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tablet-optimized {
+    max-width: 768px;
+    margin: 0 auto;
+  }
+  
+  .tablet-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Melhorias para orientação landscape em mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .mobile-landscape {
+    padding: 8px 16px;
+  }
+  
+  .mobile-landscape-header {
+    padding: 8px 16px;
+  }
+  
+  .mobile-landscape-content {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+}
+
+/* Melhorias para dispositivos com notch */
+@supports (padding: max(0px)) {
+  .mobile-safe-area {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-top: max(16px, env(safe-area-inset-top));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Melhorias para modo escuro em mobile */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  .mobile-dark {
+    background-color: #111827;
+    color: #f9fafb;
+  }
+  
+  .mobile-dark-card {
+    background-color: #1f2937;
+    border-color: #374151;
+  }
+  
+  .mobile-dark-input {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+  }
+  
+  .mobile-dark-input:focus {
+    border-color: #3b82f6;
+  }
+}
+
+/* Melhorias para redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-animate {
+    transition: none;
+  }
+  
+  .mobile-loading-spinner {
+    animation: none;
+  }
+}
+
+
+
+
+

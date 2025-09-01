@@ -1,12 +1,12 @@
 "use client"
 
 import { ProtectedDevRoute } from "@/components/auth/protected-dev-route"
-import { DevDashboard } from "@/components/dev/dev-dashboard"
+import { DevContent } from "@/components/dev/dev-content"
 
 export default function DevPage() {
   return (
     <ProtectedDevRoute>
-      <DevDashboard />
+      <DevContent />
     </ProtectedDevRoute>
   )
 }

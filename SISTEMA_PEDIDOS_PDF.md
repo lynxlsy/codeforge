@@ -186,3 +186,6 @@ Atualize os objetos `platformConfig` nos componentes relevantes
 **🎉 Sistema 100% funcional e pronto para uso!**
 
 
+
+
+

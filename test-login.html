@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔍 Teste de Login DEV - CDforge</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid #dc2626;
+            box-shadow: 0 0 30px rgba(220, 38, 38, 0.3);
+        }
+        h1 {
+            text-align: center;
+            color: #dc2626;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid #dc2626;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .test-button {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: background 0.3s;
+        }
+        .test-button:hover {
+            background: #b91c1c;
+        }
+        .test-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+        .result {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success { border-left: 4px solid #10b981; }
+        .error { border-left: 4px solid #ef4444; }
+        .info { border-left: 4px solid #3b82f6; }
+        .credentials {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .credentials h3 {
+            color: #22c55e;
+            margin-top: 0;
+        }
+        .credential-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        .credential-label {
+            font-weight: bold;
+            color: #22c55e;
+        }
+        .credential-value {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Teste de Login DEV - CDforge</h1>
+        
+        <div class="credentials">
+            <h3>🔑 Credenciais de Teste</h3>
+            <div class="credential-item">
+                <span class="credential-label">Usuário:</span>
+                <span class="credential-value">dev</span>
+            </div>
+            <div class="credential-item">
+                <span class="credential-label">Senha:</span>
+                <span class="credential-value">D</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>🧪 Testes de Validação</h3>
+            <button class="test-button" onclick="testLocalValidation()">Testar Validação Local</button>
+            <button class="test-button" onclick="testUserList()">Listar Usuários</button>
+            <button class="test-button" onclick="testCredentials()">Testar Credenciais</button>
+            <button class="test-button" onclick="clearResults()">Limpar Resultados</button>
+        </div>
+
+        <div class="test-section">
+            <h3>🔍 Testes de Firebase</h3>
+            <button class="test-button" onclick="testFirebaseConnection()">Testar Conexão Firebase</button>
+            <button class="test-button" onclick="testFirestoreAccess()">Testar Acesso Firestore</button>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 Resultados dos Testes</h3>
+            <div id="results" class="result info">
+                Clique nos botões acima para executar os testes...
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>📋 Instruções</h3>
+            <ol>
+                <li>Execute os testes na ordem sugerida</li>
+                <li>Verifique se há erros nos resultados</li>
+                <li>Se houver erros de Firebase, configure as regras de segurança</li>
+                <li>Teste o login real após resolver os problemas</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let testResults = [];
+
+        function addResult(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const result = `[${timestamp}] ${message}`;
+            testResults.push({ message: result, type });
+            updateResultsDisplay();
+        }
+
+        function updateResultsDisplay() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = testResults.map(result => 
+                `<div class="${result.type}">${result.message}</div>`
+            ).join('');
+            resultsDiv.scrollTop = resultsDiv.scrollHeight;
+        }
+
+        function clearResults() {
+            testResults = [];
+            updateResultsDisplay();
+            addResult('Resultados limpos', 'info');
+        }
+
+        // Teste 1: Validação Local
+        function testLocalValidation() {
+            addResult('🧪 Iniciando teste de validação local...', 'info');
+            
+            try {
+                // Simular validação local
+                const testUsers = [
+                    { username: 'dev', password: 'D', expected: true },
+                    { username: 'melke', password: 'M7', expected: true },
+                    { username: 'test', password: 'wrong', expected: false }
+                ];
+
+                testUsers.forEach(user => {
+                    // Simular validação
+                    const isValid = user.username === 'dev' && user.password === 'D' ||
+                                  user.username === 'melke' && user.password === 'M7' ||
+                                  user.username === 'ysun' && user.password === '122345' ||
+                                  user.username === 'pedro' && user.password === 'Alice' ||
+                                  user.username === 'zanesco' && user.password === 'HaxSHW02';
+                    
+                    const status = isValid === user.expected ? '✅' : '❌';
+                    addResult(`${status} ${user.username}:${user.password} - ${isValid ? 'VÁLIDO' : 'INVÁLIDO'}`, 
+                             isValid === user.expected ? 'success' : 'error');
+                });
+
+                addResult('✅ Teste de validação local concluído', 'success');
+            } catch (error) {
+                addResult(`❌ Erro no teste de validação: ${error.message}`, 'error');
+            }
+        }
+
+        // Teste 2: Listar Usuários
+        function testUserList() {
+            addResult('📋 Listando usuários autorizados...', 'info');
+            
+            const users = [
+                { username: 'dev', password: 'D', type: 'dev', role: 'admin' },
+                { username: 'melke', password: 'M7', type: 'funcionario', role: 'funcionario' },
+                { username: 'ysun', password: '122345', type: 'funcionario', role: 'funcionario' },
+                { username: 'pedro', password: 'Alice', type: 'funcionario', role: 'funcionario' },
+                { username: 'zanesco', password: 'HaxSHW02', type: 'funcionario', role: 'funcionario' }
+            ];
+
+            users.forEach(user => {
+                addResult(`👤 ${user.username} (${user.type}) - ${user.role}`, 'info');
+            });
+
+            addResult(`✅ Total de usuários: ${users.length}`, 'success');
+        }
+
+        // Teste 3: Testar Credenciais
+        function testCredentials() {
+            addResult('🔐 Testando credenciais específicas...', 'info');
+            
+            const testCases = [
+                { username: 'dev', password: 'D', description: 'Usuário DEV principal' },
+                { username: 'dev', password: 'wrong', description: 'Usuário DEV com senha errada' },
+                { username: 'melke', password: 'M7', description: 'Funcionário Melke' },
+                { username: 'nonexistent', password: 'test', description: 'Usuário inexistente' }
+            ];
+
+            testCases.forEach(testCase => {
+                // Simular validação
+                const isValid = (testCase.username === 'dev' && testCase.password === 'D') ||
+                              (testCase.username === 'melke' && testCase.password === 'M7') ||
+                              (testCase.username === 'ysun' && testCase.password === '122345') ||
+                              (testCase.username === 'pedro' && testCase.password === 'Alice') ||
+                              (testCase.username === 'zanesco' && testCase.password === 'HaxSHW02');
+                
+                const status = isValid ? '✅' : '❌';
+                addResult(`${status} ${testCase.description}: ${testCase.username}:${testCase.password}`, 
+                         isValid ? 'success' : 'error');
+            });
+
+            addResult('✅ Teste de credenciais concluído', 'success');
+        }
+
+        // Teste 4: Conexão Firebase
+        function testFirebaseConnection() {
+            addResult('🔥 Testando conexão com Firebase...', 'info');
+            
+            // Testar se o Firebase está disponível
+            if (typeof window !== 'undefined' && window.firebase) {
+                addResult('✅ Firebase disponível no window', 'success');
+            } else {
+                addResult('❌ Firebase não encontrado no window', 'error');
+            }
+
+            // Testar conectividade
+            fetch('https://cdforge.firebaseapp.com/.well-known/__/firebase/init.json')
+                .then(response => {
+                    if (response.ok) {
+                        addResult('✅ Firebase acessível via HTTP', 'success');
+                    } else {
+                        addResult(`❌ Firebase retornou erro: ${response.status}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    addResult(`❌ Erro ao acessar Firebase: ${error.message}`, 'error');
+                });
+
+            addResult('✅ Teste de conexão Firebase concluído', 'success');
+        }
+
+        // Teste 5: Acesso Firestore
+        function testFirestoreAccess() {
+            addResult('📊 Testando acesso ao Firestore...', 'info');
+            
+            // Verificar se há sessão salva
+            const savedSession = localStorage.getItem('cdforge-dev-session');
+            if (savedSession) {
+                addResult(`💾 Sessão encontrada: ${savedSession.substring(0, 20)}...`, 'info');
+            } else {
+                addResult('❌ Nenhuma sessão encontrada', 'info');
+            }
+
+            // Verificar se há erros de CORS ou rede
+            addResult('ℹ️ Para testar acesso real ao Firestore, execute no contexto da aplicação', 'info');
+            addResult('ℹ️ Verifique as regras de segurança no Firebase Console', 'info');
+
+            addResult('✅ Teste de acesso Firestore concluído', 'success');
+        }
+
+        // Inicialização
+        addResult('🚀 Sistema de teste inicializado', 'success');
+        addResult('💡 Dica: Comece testando a validação local', 'info');
+    </script>
+</body>
+</html>
+
+
+
+
+

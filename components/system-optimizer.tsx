@@ -192,56 +192,56 @@ export function SystemOptimizer() {
   if (!isOptimizing) return null
 
   return (
-    <div className="fixed top-16 right-4 z-50 bg-black/90 backdrop-blur-sm border border-primary/20 rounded-lg p-3 min-w-[280px]">
-      <div className="flex items-center gap-2 mb-2">
-        <div className="flex items-center gap-2 text-primary">
+    <div className="fixed bottom-4 right-4 z-50 bg-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-xl p-4 shadow-2xl max-w-[240px]">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center gap-2 text-blue-400">
           <Zap className="w-4 h-4 animate-pulse" />
-          <span className="text-sm font-medium">Otimizando Sistema</span>
+          <span className="text-sm font-medium text-gray-200">Otimizando</span>
           {getDeviceIcon()}
         </div>
       </div>
 
-      <div className="space-y-2">
-        <div className="flex justify-between text-xs text-muted-foreground">
+      <div className="space-y-3">
+        <div className="flex justify-between text-xs text-gray-400">
           <span>Progresso</span>
-          <span>{progress}%</span>
+          <span className="font-medium text-blue-400">{progress}%</span>
         </div>
 
-        <div className="w-full bg-muted/20 rounded-full h-2">
+        <div className="w-full bg-gray-800/50 rounded-full h-1.5">
           <div
-            className="bg-gradient-to-r from-primary to-primary/80 h-2 rounded-full transition-all duration-500 ease-out"
+            className="bg-gradient-to-r from-blue-500 to-blue-600 h-1.5 rounded-full transition-all duration-500 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
 
-        <div className="text-xs text-muted-foreground space-y-1">
-          <div className={`flex items-center gap-2 ${metrics.deviceDetection ? "text-primary" : ""}`}>
+        <div className="text-xs text-gray-400 space-y-1.5">
+          <div className={`flex items-center gap-2 ${metrics.deviceDetection ? "text-blue-400" : ""}`}>
             <div
-              className={`w-1.5 h-1.5 rounded-full ${metrics.deviceDetection ? "bg-primary" : "bg-muted-foreground/50"}`}
+              className={`w-1 h-1 rounded-full ${metrics.deviceDetection ? "bg-blue-400" : "bg-gray-600"}`}
             />
-            Detectando dispositivo
+            <span className="truncate">Detectando dispositivo</span>
           </div>
-          <div className={`flex items-center gap-2 ${metrics.domReady ? "text-primary" : ""}`}>
-            <div className={`w-1.5 h-1.5 rounded-full ${metrics.domReady ? "bg-primary" : "bg-muted-foreground/50"}`} />
-            Carregando interface
+          <div className={`flex items-center gap-2 ${metrics.domReady ? "text-blue-400" : ""}`}>
+            <div className={`w-1 h-1 rounded-full ${metrics.domReady ? "bg-blue-400" : "bg-gray-600"}`} />
+            <span className="truncate">Carregando interface</span>
           </div>
-          <div className={`flex items-center gap-2 ${metrics.imagesLoaded ? "text-primary" : ""}`}>
+          <div className={`flex items-center gap-2 ${metrics.imagesLoaded ? "text-blue-400" : ""}`}>
             <div
-              className={`w-1.5 h-1.5 rounded-full ${metrics.imagesLoaded ? "bg-primary" : "bg-muted-foreground/50"}`}
+              className={`w-1 h-1 rounded-full ${metrics.imagesLoaded ? "bg-blue-400" : "bg-gray-600"}`}
             />
-            Otimizando recursos
+            <span className="truncate">Otimizando recursos</span>
           </div>
-          <div className={`flex items-center gap-2 ${metrics.fontsLoaded ? "text-primary" : ""}`}>
+          <div className={`flex items-center gap-2 ${metrics.fontsLoaded ? "text-blue-400" : ""}`}>
             <div
-              className={`w-1.5 h-1.5 rounded-full ${metrics.fontsLoaded ? "bg-primary" : "bg-muted-foreground/50"}`}
+              className={`w-1 h-1 rounded-full ${metrics.fontsLoaded ? "bg-blue-400" : "bg-gray-600"}`}
             />
-            Configurando tipografia
+            <span className="truncate">Configurando tipografia</span>
           </div>
-          <div className={`flex items-center gap-2 ${metrics.performanceOptimized ? "text-primary" : ""}`}>
+          <div className={`flex items-center gap-2 ${metrics.performanceOptimized ? "text-blue-400" : ""}`}>
             <div
-              className={`w-1.5 h-1.5 rounded-full ${metrics.performanceOptimized ? "bg-primary" : "bg-muted-foreground/50"}`}
+              className={`w-1 h-1 rounded-full ${metrics.performanceOptimized ? "bg-blue-400" : "bg-gray-600"}`}
             />
-            Finalizando otimização
+            <span className="truncate">Finalizando</span>
           </div>
         </div>
       </div>

@@ -65,6 +65,7 @@ export function PricingManager() {
   const [tempMax, setTempMax] = useState<number>(0)
   const [isLoading, setIsLoading] = useState(true)
   const [isSynchronized, setIsSynchronized] = useState(false)
+  const [activeTab, setActiveTab] = useState("bots")
   const { toast } = useToast()
 
   // Carregar preços do Firebase quando o componente montar
@@ -188,14 +189,14 @@ export function PricingManager() {
   return (
     <div className="space-y-6">
       <div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 space-y-3 sm:space-y-0">
           <div>
             <h1 className="text-3xl font-bold text-white mb-2">Gerenciador de Preços</h1>
             <p className="text-gray-400">Configure preços mínimos e máximos para cada categoria e plataforma</p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             {isSynchronized && !isLoading && (
-              <div className="flex items-center gap-2 text-green-400 text-sm">
+              <div className="flex items-center justify-center sm:justify-start gap-2 text-green-400 text-sm">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                 <span>Sincronizado</span>
               </div>
@@ -224,8 +225,9 @@ export function PricingManager() {
         )}
       </div>
 
-      <Tabs defaultValue="bots" className="space-y-6">
-        <TabsList className="bg-gray-800/50 border border-gray-700">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        {/* Desktop Tabs */}
+        <TabsList className="hidden md:flex bg-gray-800/50 border border-gray-700">
           <TabsTrigger
             value="bots"
             className="cursor-pointer data-[state=active]:bg-red-600 data-[state=active]:text-white text-gray-300 hover:text-white transition-colors"
@@ -251,6 +253,32 @@ export function PricingManager() {
             🧮 Calculadora
           </TabsTrigger>
         </TabsList>
+
+        {/* Mobile Dropdown */}
+        <div className="md:hidden">
+          <div className="relative">
+            <select 
+              value={activeTab}
+              className="w-full bg-gradient-to-r from-gray-800/80 to-gray-900/80 border border-gray-600/50 text-gray-200 rounded-xl px-4 py-4 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:border-red-500/50 appearance-none cursor-pointer shadow-lg backdrop-blur-sm"
+              onChange={(e) => setActiveTab(e.target.value)}
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+                backgroundPosition: 'right 2.5rem center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: '1.5em 1.5em',
+                paddingRight: '4rem'
+              }}
+            >
+              <option value="bots" className="bg-gray-800 text-gray-200 py-2">🤖 Bots</option>
+              <option value="sites" className="bg-gray-800 text-gray-200 py-2">🌐 Sites</option>
+              <option value="personalizados" className="bg-gray-800 text-gray-200 py-2">🔧 Personalizados</option>
+              <option value="calculator" className="bg-gray-800 text-gray-200 py-2">🧮 Calculadora</option>
+            </select>
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+        </div>
 
         {/* Tab Bots */}
         <TabsContent value="bots" className="space-y-6">

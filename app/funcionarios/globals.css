@@ -1,0 +1,397 @@
+@import "tailwindcss";
+
+/* FUNCIONÁRIOS Theme - Black and Blue */
+:root {
+  --funcionario-background: #0d0d0d; /* Almost black background */
+  --funcionario-foreground: #fafafa; /* White text */
+  --funcionario-card: #141414; /* Very dark gray cards */
+  --funcionario-card-foreground: #fafafa; /* White card text */
+  --funcionario-popover: #141414; /* Dark popover background */
+  --funcionario-popover-foreground: #fafafa; /* White popover text */
+  --funcionario-primary: #3b82f6; /* Blue primary */
+  --funcionario-primary-foreground: #0d0d0d; /* Black text on primary */
+  --funcionario-secondary: #1f1f1f; /* Dark gray secondary */
+  --funcionario-secondary-foreground: #fafafa; /* White text on secondary */
+  --funcionario-muted: #1f1f1f; /* Dark gray muted */
+  --funcionario-muted-foreground: #b3b3b3; /* Light gray muted text */
+  --funcionario-accent: #3b82f6; /* Blue accent */
+  --funcionario-accent-foreground: #0d0d0d; /* Black accent text */
+  --funcionario-destructive: #ef4444; /* Red destructive */
+  --funcionario-destructive-foreground: #fafafa; /* White destructive text */
+  --funcionario-border: #262626; /* Dark gray borders */
+  --funcionario-input: #141414; /* Dark input background */
+  --funcionario-ring: rgba(59, 130, 246, 0.5); /* Blue focus ring */
+  --funcionario-radius: 0.5rem; /* Rounded corners */
+}
+
+/* Override theme for FUNCIONÁRIOS area */
+.funcionario-gradient {
+  --color-background: var(--funcionario-background);
+  --color-foreground: var(--funcionario-foreground);
+  --color-card: var(--funcionario-card);
+  --color-card-foreground: var(--funcionario-card-foreground);
+  --color-popover: var(--funcionario-popover);
+  --color-popover-foreground: var(--funcionario-popover-foreground);
+  --color-primary: var(--funcionario-primary);
+  --color-primary-foreground: var(--funcionario-primary-foreground);
+  --color-secondary: var(--funcionario-secondary);
+  --color-secondary-foreground: var(--funcionario-secondary-foreground);
+  --color-muted: var(--funcionario-muted);
+  --color-muted-foreground: var(--funcionario-muted-foreground);
+  --color-accent: var(--funcionario-accent);
+  --color-accent-foreground: var(--funcionario-accent-foreground);
+  --color-destructive: var(--funcionario-destructive);
+  --color-destructive-foreground: var(--funcionario-destructive-foreground);
+  --color-border: var(--funcionario-border);
+  --color-input: var(--funcionario-input);
+  --color-ring: var(--funcionario-ring);
+  --radius-sm: calc(var(--funcionario-radius) - 4px);
+  --radius-md: calc(var(--funcionario-radius) - 2px);
+  --radius-lg: var(--funcionario-radius);
+  --radius-xl: calc(var(--funcionario-radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+}
+
+/* Force dark theme for FUNCIONÁRIOS area */
+.funcionario-gradient {
+  color-scheme: dark;
+}
+
+.funcionario-gradient * {
+  color-scheme: dark;
+}
+
+/* FUNCIONÁRIOS Specific Styles */
+.funcionario-gradient {
+  background: linear-gradient(135deg, var(--funcionario-background) 0%, var(--funcionario-card) 50%, var(--funcionario-primary) 100%);
+  min-height: 100vh;
+}
+
+.funcionario-card {
+  @apply bg-card border border-border rounded-lg shadow-lg;
+}
+
+.funcionario-button {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-colors;
+}
+
+.funcionario-button-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors;
+}
+
+.funcionario-button-destructive {
+  @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+  .funcionario-gradient {
+    /* Improve touch targets on mobile */
+    --touch-target-size: 44px;
+  }
+  
+  /* Better spacing for mobile cards */
+  .funcionario-card {
+    @apply p-3;
+  }
+  
+  /* Improve button touch targets */
+  button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better text readability on small screens */
+  .text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+  
+  /* Improve form inputs on mobile */
+  input, textarea, select {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+  }
+  
+  /* Better modal positioning on mobile */
+  [data-radix-dialog-content] {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+  
+  /* Improve sidebar animation on mobile */
+  .sidebar-mobile {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Better grid layout for mobile */
+  .grid-mobile {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  /* Improve card spacing on mobile */
+  .card-mobile {
+    @apply p-3 space-y-2;
+  }
+  
+  /* Better header layout on mobile */
+  .header-mobile {
+    @apply flex-col space-y-2;
+  }
+  
+  /* Improve navigation on mobile */
+  .nav-mobile {
+    @apply space-y-1;
+  }
+  
+  /* Better button groups on mobile */
+  .button-group-mobile {
+    @apply flex-col space-y-2;
+  }
+  
+  /* Improve text wrapping on mobile */
+  .text-wrap-mobile {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Desktop-specific improvements */
+@media (min-width: 1024px) {
+  .funcionario-gradient {
+    /* Enhanced desktop experience */
+    --desktop-spacing: 2rem;
+    --desktop-card-radius: 1rem;
+    --desktop-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Enhanced card design for desktop */
+  .funcionario-card {
+    @apply p-6 rounded-xl shadow-xl;
+    border-radius: var(--desktop-card-radius);
+    box-shadow: var(--desktop-shadow);
+  }
+  
+  /* Better hover effects for desktop */
+  .funcionario-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Enhanced button design for desktop */
+  .funcionario-button {
+    @apply px-6 py-3 rounded-lg font-medium;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .funcionario-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Better typography for desktop */
+  .funcionario-gradient h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  
+  .funcionario-gradient h2 {
+    font-size: 2rem;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+  
+  .funcionario-gradient h3 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  
+  /* Enhanced sidebar for desktop */
+  .sidebar-desktop {
+    width: 18rem;
+    backdrop-filter: blur(20px);
+    border-right: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  
+  /* Better grid layout for desktop */
+  .grid-desktop {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  /* Enhanced animations for desktop */
+  .animate-desktop {
+    animation-duration: 0.5s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Better spacing for desktop */
+  .spacing-desktop {
+    @apply space-y-8;
+  }
+  
+  /* Enhanced form elements for desktop */
+  input, textarea, select {
+    @apply px-4 py-3 rounded-lg;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* Better focus states for desktop */
+  input:focus, textarea:focus, select:focus {
+    outline: 2px solid rgba(59, 130, 246, 0.5);
+    outline-offset: 2px;
+  }
+  
+  /* Enhanced badge design for desktop */
+  .badge-desktop {
+    @apply px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  /* Better icon sizing for desktop */
+  .icon-desktop {
+    @apply h-6 w-6;
+  }
+  
+  /* Enhanced navigation for desktop */
+  .nav-desktop {
+    @apply space-y-2;
+  }
+  
+  .nav-desktop button {
+    @apply px-4 py-3 rounded-lg text-left;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .nav-desktop button:hover {
+    background: rgba(59, 130, 246, 0.1);
+    transform: translateX(4px);
+  }
+  
+  /* Enhanced header for desktop */
+  .header-desktop {
+    @apply px-8 py-6;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+  }
+  
+  /* Better content layout for desktop */
+  .content-desktop {
+    @apply px-8 py-6;
+  }
+  
+  /* Enhanced modal design for desktop */
+  .modal-desktop {
+    @apply rounded-2xl shadow-2xl;
+    backdrop-filter: blur(20px);
+  }
+  
+  /* Better table design for desktop */
+  .table-desktop {
+    @apply rounded-xl overflow-hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table-desktop th {
+    @apply px-6 py-4 text-left font-semibold;
+    background: rgba(59, 130, 246, 0.1);
+  }
+  
+  .table-desktop td {
+    @apply px-6 py-4;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+  }
+  
+  /* Enhanced loading states for desktop */
+  .loading-desktop {
+    @apply rounded-xl;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+/* Tablet improvements */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .funcionario-gradient {
+    /* Better spacing for tablets */
+    --spacing-unit: 1.5rem;
+  }
+  
+  /* Improve card layout for tablets */
+  .card-tablet {
+    @apply p-4;
+  }
+  
+  /* Better grid for tablets */
+  .grid-tablet {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .funcionario-gradient {
+    /* Sharper borders and shadows */
+    --border-width: 0.5px;
+  }
+}
+
+/* Landscape mobile */
+@media (max-width: 640px) and (orientation: landscape) {
+  .funcionario-gradient {
+    /* Adjust for landscape mobile */
+    --header-height: 60px;
+  }
+  
+  /* Compact header for landscape */
+  .header-landscape {
+    @apply h-15;
+  }
+  
+  /* Better use of horizontal space */
+  .content-landscape {
+    @apply grid-cols-2 gap-3;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .funcionario-gradient * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .funcionario-gradient {
+    --funcionario-border: #ffffff;
+    --funcionario-primary: #0066cc;
+  }
+}
+
+/* Print styles */
+@media print {
+  .funcionario-gradient {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .funcionario-card {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+}

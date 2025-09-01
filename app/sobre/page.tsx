@@ -6,9 +6,6 @@ import { ParticlesBackground } from "@/components/particles-background"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
-  Code,
-  Bot,
-  ShoppingCart,
   Users,
   Sparkles,
   Target,
@@ -21,48 +18,6 @@ import {
 } from "lucide-react"
 
 export default function SobrePage() {
-  const founders = [
-    {
-      name: "Melke",
-      role: "Tech Lead & Designer",
-      specialties: ["Sites & HTML", "Automação de Códigos", "Design UI/UX"],
-      description: "Especialista em desenvolvimento web e design criativo. Transforma ideias em interfaces incríveis.",
-      icon: Code,
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-500/10",
-      borderColor: "border-blue-500/20",
-    },
-    {
-      name: "Zanesco",
-      role: "Bot Master",
-      specialties: ["Criação de Bots", "Automação Avançada", "Sistemas Inteligentes"],
-      description: "Mestre na criação de bots inteligentes e automações que revolucionam processos.",
-      icon: Bot,
-      color: "from-green-500 to-emerald-500",
-      bgColor: "bg-green-500/10",
-      borderColor: "border-green-500/20",
-    },
-    {
-      name: "Pedro",
-      role: "Sales & Support Lead",
-      specialties: ["Vendas", "Suporte Técnico", "Gestão de Clientes"],
-      description: "Líder em vendas e suporte, garante que cada cliente tenha a melhor experiência possível.",
-      icon: ShoppingCart,
-      color: "from-purple-500 to-pink-500",
-      bgColor: "bg-purple-500/10",
-      borderColor: "border-purple-500/20",
-    },
-    {
-      name: "MEC",
-      role: "Business Partner",
-      specialties: ["Gestão Comercial", "Estratégia", "Parcerias"],
-      description: "Sócio estratégico focado em expandir negócios e criar parcerias de sucesso.",
-      icon: Users,
-      color: "from-orange-500 to-red-500",
-      bgColor: "bg-orange-500/10",
-      borderColor: "border-orange-500/20",
-    },
-  ]
 
   const values = [
     {
@@ -98,11 +53,11 @@ export default function SobrePage() {
           <div className="container mx-auto text-center max-w-4xl">
             <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-8">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-sm text-primary font-medium">Quarteto Forge</span>
+              <span className="text-sm text-primary font-medium">Trio Forge</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight">
-              Conheça o <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">Quarteto Forge</span>
+              Conheça o <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">Trio Forge</span>
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed">
@@ -112,7 +67,7 @@ export default function SobrePage() {
             {/* Stats */}
             <div className="flex flex-wrap justify-center gap-8 mb-16">
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-2">4</div>
+                <div className="text-3xl font-bold text-primary mb-2">3</div>
                 <div className="text-sm text-gray-400">Fundadores Especialistas</div>
               </div>
               <div className="text-center">
@@ -135,52 +90,91 @@ export default function SobrePage() {
                 Nossa <span className="text-primary">Equipe</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Conheça os especialistas que formam o Quarteto Forge e estão prontos para transformar seu negócio
+                Conheça os especialistas que formam o Trio Forge e estão prontos para transformar seu negócio
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {founders.map((founder, index) => {
-                const Icon = founder.icon
-                return (
-                  <Card 
-                    key={founder.name}
-                    className="group relative overflow-hidden bg-black/20 border border-white/5 backdrop-blur-sm hover:bg-black/30 hover:border-primary/30 transition-all duration-500 cursor-pointer transform hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/10"
-                  >
-                    {/* Gradient Background */}
-                    <div className={`absolute inset-0 bg-gradient-to-br ${founder.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-                    
-                    <CardContent className="relative p-8 text-center">
-                      {/* Avatar */}
-                      <div className={`mx-auto mb-6 p-6 rounded-full ${founder.bgColor} w-24 h-24 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                        <Icon className={`h-12 w-12 ${founder.color.replace('from-', 'text-').replace(' to-', '')}`} />
-                      </div>
-                      
-                      {/* Name & Role */}
-                      <h3 className="text-2xl font-bold text-white mb-2">{founder.name}</h3>
-                      <p className="text-primary font-semibold mb-4">{founder.role}</p>
-                      
-                      {/* Description */}
-                      <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-                        {founder.description}
-                      </p>
-                      
-                      {/* Specialties */}
-                      <div className="space-y-2">
-                        {founder.specialties.map((specialty, idx) => (
-                          <Badge 
-                            key={idx}
-                            variant="outline" 
-                            className={`text-xs ${founder.borderColor} bg-transparent`}
-                          >
-                            {specialty}
-                          </Badge>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-              })}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Melke */}
+              <Card className="bg-gradient-to-br from-blue-600/10 to-blue-700/10 border border-blue-600/20 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300 group">
+                <CardContent className="p-8 text-center">
+                  <div className="bg-gradient-to-br from-blue-600/20 to-blue-700/20 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <Zap className="h-12 w-12 text-blue-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Melke</h3>
+                  <Badge className="bg-blue-600/20 text-blue-300 border border-blue-600/30 mb-4">
+                    Desenvolvedor Full-Stack
+                  </Badge>
+                  <p className="text-gray-300 leading-relaxed">
+                    Especialista em desenvolvimento de sites e automações. Transforma ideias em soluções digitais inovadoras com tecnologia de ponta.
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2 mt-4">
+                    <Badge variant="outline" className="text-xs border-blue-600/30 text-blue-300">
+                      Sites
+                    </Badge>
+                    <Badge variant="outline" className="text-xs border-blue-600/30 text-blue-300">
+                      Automações
+                    </Badge>
+                    <Badge variant="outline" className="text-xs border-blue-600/30 text-blue-300">
+                      Full-Stack
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Zanesco */}
+              <Card className="bg-gradient-to-br from-purple-600/10 to-purple-700/10 border border-purple-600/20 backdrop-blur-sm hover:border-purple-500/30 transition-all duration-300 group">
+                <CardContent className="p-8 text-center">
+                  <div className="bg-gradient-to-br from-purple-600/20 to-purple-700/20 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <Sparkles className="h-12 w-12 text-purple-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Zanesco</h3>
+                  <Badge className="bg-purple-600/20 text-purple-300 border border-purple-600/30 mb-4">
+                    Criador & Desenvolvedor
+                  </Badge>
+                  <p className="text-gray-300 leading-relaxed">
+                    Desenvolvedor e criador de bots, design e serviços. Mestre em criar soluções inteligentes que revolucionam a experiência digital.
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2 mt-4">
+                    <Badge variant="outline" className="text-xs border-purple-600/30 text-purple-300">
+                      Bots
+                    </Badge>
+                    <Badge variant="outline" className="text-xs border-purple-600/30 text-purple-300">
+                      Design
+                    </Badge>
+                    <Badge variant="outline" className="text-xs border-purple-600/30 text-purple-300">
+                      Serviços
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Pedro */}
+              <Card className="bg-gradient-to-br from-green-600/10 to-green-700/10 border border-green-600/20 backdrop-blur-sm hover:border-green-500/30 transition-all duration-300 group">
+                <CardContent className="p-8 text-center">
+                  <div className="bg-gradient-to-br from-green-600/20 to-green-700/20 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <Users className="h-12 w-12 text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Pedro</h3>
+                  <Badge className="bg-green-600/20 text-green-300 border border-green-600/30 mb-4">
+                    Agente Oficial
+                  </Badge>
+                  <p className="text-gray-300 leading-relaxed">
+                    Especialista em assistência de bots, negociações e vendas. Garante que cada cliente tenha a melhor experiência e solução personalizada.
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2 mt-4">
+                    <Badge variant="outline" className="text-xs border-green-600/30 text-green-300">
+                      Assistência
+                    </Badge>
+                    <Badge variant="outline" className="text-xs border-green-600/30 text-green-300">
+                      Negociações
+                    </Badge>
+                    <Badge variant="outline" className="text-xs border-green-600/30 text-green-300">
+                      Vendas
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>

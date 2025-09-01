@@ -303,3 +303,16 @@ if (error) {
 5. Implemente autenticação do Firebase (opcional)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+

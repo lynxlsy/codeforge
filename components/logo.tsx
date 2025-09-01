@@ -18,7 +18,7 @@ export function Logo({ className = "", size = "md", variant = "full" }: LogoProp
     <div className={`flex items-center gap-3 ${className}`}>
       <div className={`${sizeClasses[size]} flex-shrink-0`}>
         <Image
-          src="/logo-blue.svg"
+          src="/logo.svg"
           alt="CodeForge Logo"
           width={543}
           height={567}

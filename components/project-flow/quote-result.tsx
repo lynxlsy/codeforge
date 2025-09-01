@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { calculateQuote, getCurrentPricing } from "@/lib/pricing"
-import { useOrders } from "@/hooks/use-orders"
+import { useProjects } from "@/hooks/use-firebase"
 import { useContactConfig } from "@/hooks/use-contact-config"
 import { PDFGenerator } from "@/lib/pdf-generator"
 import type { ProjectData } from "./project-flow"
@@ -22,7 +22,7 @@ interface QuoteResultProps {
 export function QuoteResult({ projectData }: QuoteResultProps) {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [pdfFileName, setPdfFileName] = useState<string>("")
-  const { submitOrder, loading } = useOrders()
+  const { createProject, loading } = useProjects()
   const { openWhatsApp, getWhatsAppNumber, getTelegramNumber } = useContactConfig()
   const quote = calculateQuote(projectData)
   
@@ -55,10 +55,10 @@ export function QuoteResult({ projectData }: QuoteResultProps) {
   const handleConfirmProject = async () => {
     try {
       // Preparar dados do projeto para o Firebase
-      const orderData = {
+      const projectDataForFirebase = {
         client: projectData.name,
-        email: projectData.contact, // Sempre salvar o contato, independente do método
-        platform: projectData.platform?.id as any,
+        email: projectData.contact,
+        platform: (projectData.platform?.id || 'website') as "discord-bot" | "instagram-bot" | "website" | "system",
         description: projectData.description,
         features: projectData.features,
         complexity: projectData.complexity,
@@ -70,12 +70,31 @@ export function QuoteResult({ projectData }: QuoteResultProps) {
         ...(projectData.company && { notes: `Empresa: ${projectData.company}` })
       }
 
-      // Enviar pedido
-      const result = await submitOrder(orderData)
+      // Enviar projeto
+      const projectId = await createProject(projectDataForFirebase)
       
-      if (result.success && result.fileName) {
+      // Gerar PDF
+      const pdfData = {
+        id: projectId,
+        client: projectData.name,
+        email: projectData.contact,
+        platform: (projectData.platform?.id || 'website') as "discord-bot" | "instagram-bot" | "website" | "system",
+        description: projectData.description,
+        features: projectData.features,
+        complexity: projectData.complexity,
+        timeline: projectData.timeline,
+        price: quote.finalPrice,
+        date: new Date().toISOString(),
+        contactMethod: projectData.contactMethod,
+        status: "pending" as const,
+        ...(projectData.company && { notes: `Empresa: ${projectData.company}` })
+      }
+      
+      const pdfResult = await PDFGenerator.generateOrderPDF(pdfData)
+      
+      if (projectId && pdfResult) {
         setIsSubmitted(true)
-        setPdfFileName(result.fileName)
+        setPdfFileName(`comprovante-${projectData.name}-${Date.now()}.pdf`)
       }
     } catch (error) {
       console.error('Erro ao confirmar projeto:', error)

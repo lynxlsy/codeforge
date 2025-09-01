@@ -1,13 +1,16 @@
 import { doc, getDoc, setDoc, onSnapshot } from 'firebase/firestore'
 import { db } from './firebase'
-import { validateCredentials, getUserByUsername, SECURITY_CONFIG } from './dev-auth-config'
+import { validateCredentials, getUserByUsername, SECURITY_CONFIG, isDevUser, isFuncionario } from './dev-auth-config'
+import { validatePredefinedEmployeeCredentials, logoutPredefinedEmployee } from './predefined-employees'
 
 export interface DevUser {
   id: string
+  uid?: string // Campo para compatibilidade com o sistema online
   username: string
   name: string
   email: string
-  role: 'admin' | 'dev' | 'viewer'
+  role: 'admin' | 'dev' | 'funcionario' | 'viewer'
+  type: 'dev' | 'funcionario' // Novo campo para diferenciar o tipo de acesso
   lastLogin: string
   createdAt: string
   isActive: boolean
@@ -31,39 +34,40 @@ class FirebaseAuthService {
   // Verificar se usuário existe e é válido
   static async validateUser(username: string, password: string): Promise<DevUser | null> {
     try {
-      // Verificar se as credenciais estão na lista autorizada
-      const authorizedUser = validateCredentials(username, password)
-
-      if (!authorizedUser) {
-        return null
-      }
-
-      // Verificar se o usuário existe no Firebase, se não, criar
-      const userRef = doc(db, 'dev-users', username)
-      const userDoc = await getDoc(userRef)
+      // Validar com funcionários predefinidos
+      const predefinedEmployee = await validatePredefinedEmployeeCredentials(username, password)
       
-      if (!userDoc.exists()) {
-        // Criar usuário no Firebase
-        const newUser: DevUser = {
-          id: username,
-          username: authorizedUser.username,
-          name: authorizedUser.name,
-          email: authorizedUser.email,
-          role: authorizedUser.role,
-          lastLogin: new Date().toISOString(),
-          createdAt: new Date().toISOString(),
-          isActive: true
-        }
+      if (predefinedEmployee) {
+        // Verificar se o usuário existe no Firebase, se não, criar
+        const userRef = doc(db, 'dev-users', username)
+        const userDoc = await getDoc(userRef)
         
-        await setDoc(userRef, newUser)
-        console.log(`Usuário ${username} criado no Firebase`)
-        return newUser
+        if (!userDoc.exists()) {
+          // Criar usuário no Firebase baseado no funcionário predefinido
+          const newUser: DevUser = {
+            id: username,
+            username: predefinedEmployee.username,
+            name: predefinedEmployee.name,
+            email: predefinedEmployee.email,
+            role: predefinedEmployee.role,
+            type: predefinedEmployee.type,
+            lastLogin: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
+            isActive: predefinedEmployee.isActive
+          }
+          
+          await setDoc(userRef, newUser)
+          console.log(`✅ Funcionário predefinido ${username} criado no Firebase`)
+          return newUser
+        }
+
+        const userData = userDoc.data() as DevUser
+        return userData
       }
 
-      const userData = userDoc.data() as DevUser
-      return userData
+      return null
     } catch (error) {
-      console.error('Erro ao validar usuário:', error)
+      console.error('❌ Erro ao validar usuário:', error)
       return null
     }
   }
@@ -193,31 +197,10 @@ class FirebaseAuthService {
   // Inicializar usuários padrão se não existirem
   static async initializeDefaultUser(): Promise<void> {
     try {
-      const { getAuthorizedUsers } = await import('./dev-auth-config')
-      const authorizedUsers = getAuthorizedUsers()
-
-      for (const userData of authorizedUsers) {
-        const userRef = doc(db, 'dev-users', userData.username)
-        const userDoc = await getDoc(userRef)
-        
-        if (!userDoc.exists()) {
-          const defaultUser: DevUser = {
-            id: userData.username,
-            username: userData.username,
-            name: userData.name,
-            email: userData.email,
-            role: userData.role,
-            lastLogin: new Date().toISOString(),
-            createdAt: new Date().toISOString(),
-            isActive: true
-          }
-          
-          await setDoc(userRef, defaultUser)
-          console.log(`Usuário ${userData.username} criado no Firebase`)
-        }
-      }
+      // Nenhum usuário padrão - todos vêm do Firebase
+      console.log('ℹ️ Sistema configurado para usar apenas usuários do Firebase')
     } catch (error) {
-      console.error('Erro ao inicializar usuários padrão:', error)
+      console.error('Erro ao inicializar sistema:', error)
     }
   }
 }

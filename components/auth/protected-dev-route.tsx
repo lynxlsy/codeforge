@@ -16,14 +16,14 @@ export function ProtectedDevRoute({ children }: ProtectedDevRouteProps) {
   const [authChecked, setAuthChecked] = useState(false)
   const router = useRouter()
 
-  // Verificar autenticação em tempo real
+  // Verificar autenticação apenas uma vez ao montar o componente
   useEffect(() => {
     const verifyAuth = async () => {
       try {
         await checkAuthStatus()
-        setAuthChecked(true)
       } catch (error) {
         console.error('Erro ao verificar autenticação:', error)
+      } finally {
         setAuthChecked(true)
       }
     }
@@ -31,20 +31,7 @@ export function ProtectedDevRoute({ children }: ProtectedDevRouteProps) {
     verifyAuth()
   }, [checkAuthStatus])
 
-  // Verificar autenticação a cada 30 segundos
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      if (isAuthenticated) {
-        try {
-          await checkAuthStatus()
-        } catch (error) {
-          console.error('Erro na verificação periódica:', error)
-        }
-      }
-    }, 30000) // 30 segundos
-
-    return () => clearInterval(interval)
-  }, [isAuthenticated, checkAuthStatus])
+  // Removida verificação periódica para evitar problemas de sessão
 
   // Mostrar modal de login se não estiver autenticado
   useEffect(() => {

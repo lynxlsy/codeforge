@@ -1,80 +1,135 @@
-import { useState } from 'react'
-import type { Project } from '@/lib/types'
-import { useToast } from '@/hooks/use-toast'
+import { useState, useEffect } from 'react'
+import { collection, query, where, getDocs, orderBy, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore'
+import { db } from '@/lib/firebase'
 
-// Verificar se estamos no cliente
-const isClient = typeof window !== 'undefined'
+export interface Order {
+  id: string
+  client: string
+  project: string
+  value: string
+  status: 'Aprovado' | 'Pendente' | 'Cancelado'
+  date: string
+  priority: 'Alta' | 'Média' | 'Baixa'
+  description?: string
+  createdAt: Date
+  updatedAt: Date
+}
 
 export function useOrders() {
-  const [loading, setLoading] = useState(false)
-  const { toast } = useToast()
+  const [orders, setOrders] = useState<Order[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const submitOrder = async (orderData: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>) => {
-    if (!isClient) {
-      toast({
-        title: "❌ Erro",
-        description: "Funcionalidade não disponível no servidor.",
-        variant: "destructive",
-      })
-      return { success: false, error: 'Não disponível no servidor' }
-    }
+  // Verificar se estamos no cliente
+  const isClient = typeof window !== 'undefined'
 
-    setLoading(true)
-    
+  const fetchOrders = async () => {
     try {
-      // Importar serviços dinamicamente
-      const { projectsService } = await import('@/lib/firebase-services')
-      const { PDFGenerator } = await import('@/lib/pdf-generator')
-
-      // Limpar dados antes de enviar (remover campos undefined)
-      const cleanOrderData = Object.fromEntries(
-        Object.entries(orderData).filter(([_, value]) => value !== undefined)
-      ) as Omit<Project, 'id' | 'createdAt' | 'updatedAt'>
-
-      // Salvar no Firebase
-      const projectId = await projectsService.create({
-        ...cleanOrderData,
-        status: 'pending',
-        date: new Date().toISOString()
-      })
-
-      // Criar objeto completo do projeto
-      const project: Project = {
-        id: projectId,
-        ...cleanOrderData,
-        status: 'pending',
-        date: new Date().toISOString()
-      }
-
-      // Gerar PDF
-      const fileName = await PDFGenerator.generateOrderPDF(project)
-
-      // Mostrar sucesso
-      toast({
-        title: "✅ Pedido enviado com sucesso!",
-        description: `PDF "${fileName}" foi baixado. Envie-o para o WhatsApp da CDforge.`,
-        duration: 8000,
-      })
-
-      return { success: true, projectId, fileName }
-    } catch (error) {
-      console.error('Erro ao enviar pedido:', error)
+      setLoading(true)
+      setError(null)
       
-      toast({
-        title: "❌ Erro ao enviar pedido",
-        description: "Tente novamente ou entre em contato conosco.",
-        variant: "destructive",
+      // Verificar se o Firebase está disponível
+      if (!db) {
+        throw new Error('Firebase não está disponível')
+      }
+      
+      const ordersRef = collection(db, 'orders')
+      const q = query(ordersRef, orderBy('createdAt', 'desc'))
+      const querySnapshot = await getDocs(q)
+      
+      const ordersData: Order[] = []
+      querySnapshot.forEach((doc) => {
+        const data = doc.data()
+        ordersData.push({
+          id: doc.id,
+          client: data.client,
+          project: data.project,
+          value: data.value,
+          status: data.status,
+          date: data.date,
+          priority: data.priority,
+          description: data.description,
+          createdAt: data.createdAt?.toDate() || new Date(),
+          updatedAt: data.updatedAt?.toDate() || new Date(),
+        })
       })
-
-      return { success: false, error }
+      
+      setOrders(ordersData)
+    } catch (err) {
+      console.error('Erro ao buscar pedidos:', err)
+      setError('Erro ao carregar pedidos')
     } finally {
       setLoading(false)
     }
   }
 
+  const addOrder = async (orderData: Omit<Order, 'id' | 'createdAt' | 'updatedAt'>) => {
+    try {
+      const ordersRef = collection(db, 'orders')
+      const newOrder = {
+        ...orderData,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+      
+      const docRef = await addDoc(ordersRef, newOrder)
+      await fetchOrders() // Recarregar lista
+      return docRef.id
+    } catch (err) {
+      console.error('Erro ao adicionar pedido:', err)
+      throw new Error('Erro ao adicionar pedido')
+    }
+  }
+
+  const updateOrder = async (id: string, updates: Partial<Order>) => {
+    try {
+      const orderRef = doc(db, 'orders', id)
+      await updateDoc(orderRef, {
+        ...updates,
+        updatedAt: new Date(),
+      })
+      await fetchOrders() // Recarregar lista
+    } catch (err) {
+      console.error('Erro ao atualizar pedido:', err)
+      throw new Error('Erro ao atualizar pedido')
+    }
+  }
+
+  const deleteOrder = async (id: string) => {
+    try {
+      const orderRef = doc(db, 'orders', id)
+      await deleteDoc(orderRef)
+      await fetchOrders() // Recarregar lista
+    } catch (err) {
+      console.error('Erro ao deletar pedido:', err)
+      throw new Error('Erro ao deletar pedido')
+    }
+  }
+
+  const getApprovedOrders = () => {
+    return orders.filter(order => order.status === 'Aprovado')
+  }
+
+  const getPendingOrders = () => {
+    return orders.filter(order => order.status === 'Pendente')
+  }
+
+  useEffect(() => {
+    if (isClient) {
+      fetchOrders()
+    }
+  }, [isClient])
+
   return {
-    submitOrder,
-    loading
+    orders,
+    loading,
+    error,
+    fetchOrders,
+    addOrder,
+    updateOrder,
+    deleteOrder,
+    getApprovedOrders,
+    getPendingOrders,
   }
 }
 
