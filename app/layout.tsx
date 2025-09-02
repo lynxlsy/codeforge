@@ -11,6 +11,7 @@ import { CleanModeIndicator } from "@/components/clean-mode-indicator"
 import { GlobalSettingsInitializer } from "@/components/global-settings-initializer"
 import { ThemeStatic } from "@/components/theme-static"
 import { PWAInstaller } from "@/components/pwa-installer"
+import { StructuredData } from "./structured-data"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,12 +27,46 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "CodeForge - Serviços Digitais Profissionais",
+  title: "CodeForge - Transforme suas ideias em soluções digitais",
   description:
-    "CodeForge (CDforge) - Especialistas em bots, sites personalizados e automações. Soluções digitais profissionais para seu negócio.",
+    "CodeForge (CDforge) - Especialistas em bots inteligentes, sites profissionais e automações avançadas. Transformamos suas ideias em soluções digitais inovadoras.",
   generator: "CodeForge",
-  keywords: "bots, sites personalizados, automação, serviços digitais, desenvolvimento web",
+  keywords: "cdforge, codeforge, bots inteligentes, sites profissionais, automação, serviços digitais, desenvolvimento web, transformação digital",
+  authors: [{ name: "CodeForge Team" }],
+  creator: "CodeForge",
+  publisher: "CodeForge",
+  robots: "index, follow",
   manifest: "/manifest.json",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: "https://cdforge.shop",
+    siteName: "CodeForge",
+    title: "CodeForge - Transforme suas ideias em soluções digitais",
+    description: "Especialistas em bots inteligentes, sites profissionais e automações avançadas. Transformamos suas ideias em soluções digitais inovadoras.",
+    images: [
+      {
+        url: "https://cdforge.shop/logo.svg",
+        width: 512,
+        height: 512,
+        alt: "CodeForge Logo - Transforme suas ideias em soluções digitais",
+      },
+      {
+        url: "https://cdforge.shop/icons/icon-512x512.svg",
+        width: 512,
+        height: 512,
+        alt: "CodeForge Icon",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CodeForge - Transforme suas ideias em soluções digitais",
+    description: "Especialistas em bots inteligentes, sites profissionais e automações avançadas.",
+    images: ["https://cdforge.shop/logo.svg"],
+    creator: "@codeforge",
+    site: "@codeforge",
+  },
   icons: {
     icon: [
       { url: "/logo.svg", type: "image/svg+xml" },
@@ -50,8 +85,10 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-status-bar-style": "default",
     "apple-mobile-web-app-title": "CDforge",
     "application-name": "CDforge",
-    "msapplication-TileColor": "#000000",
+    "msapplication-TileColor": "#3B82F6",
     "msapplication-config": "/browserconfig.xml",
+    "theme-color": "#3B82F6",
+    "color-scheme": "dark",
   },
 }
 
@@ -65,12 +102,12 @@ export default function RootLayout({
       <head>
         {/* PWA Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <meta name="theme-color" content="#000000" />
+        <meta name="theme-color" content="#3B82F6" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="CDforge" />
         <meta name="application-name" content="CDforge" />
-        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-TileColor" content="#3B82F6" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Apple Touch Icons */}
@@ -81,7 +118,7 @@ export default function RootLayout({
         {/* Apple Startup Images */}
         <link rel="apple-touch-startup-image" href="/icons/ios-icon-180x180.svg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" />
         <link rel="apple-touch-startup-image" href="/icons/ios-icon-180x180.svg" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" />
-        <link rel="apple-touch-startup-image" href="/icons/ios-icon-180x180.svg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
+        <link rel="apple-touch-startup-image" href="/icons/ios-icon-180x180.svg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-3)" />
         <link rel="apple-touch-startup-image" href="/icons/ios-icon-180x180.svg" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" />
         <link rel="apple-touch-startup-image" href="/icons/ios-icon-180x180.svg" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" />
         
@@ -106,6 +143,9 @@ export default function RootLayout({
             `,
           }}
         />
+        
+        {/* Structured Data for SEO */}
+        <StructuredData />
       </head>
       <body className="font-sans bg-background text-foreground">
         <ThemeStatic />

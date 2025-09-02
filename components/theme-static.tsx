@@ -13,3 +13,4 @@ export function ThemeStatic() {
 
   return null
 }
+

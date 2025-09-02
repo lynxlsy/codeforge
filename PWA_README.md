@@ -144,3 +144,4 @@ if ('serviceWorker' in navigator) {
 
 **🎉 Agora o CDforge oferece uma experiência de app nativo completo, similar ao Xbox Cloud Gaming!**
 
+

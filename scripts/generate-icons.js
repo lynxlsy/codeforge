@@ -87,3 +87,4 @@ console.log('1. Substitua os arquivos SVG por PNG reais');
 console.log('2. Teste a instalação no Chrome DevTools');
 console.log('3. Teste no iPhone usando Safari');
 
+

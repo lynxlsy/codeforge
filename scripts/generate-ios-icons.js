@@ -77,3 +77,4 @@ iosIconSizes.forEach(size => {
 
 console.log('\n🎉 Ícones iOS otimizados gerados!');
 console.log('📱 Agora o iPhone vai mostrar a logo do CDforge perfeitamente!');
+
